@@ -6,9 +6,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class AlphaVantage {
+public class Prices {
     public static void main(String[] args) {
-        String apiKey = "TODO - API-KEY HERE";
+        Optional.ofNullable(System.getenv("AV_API_KEY")).orElseThrow(() -&gt; new IllegalStateException("Woops! AV_API_KEY env var is null!"));
+        String apiKey = System.getenv("AV_API_KEY");
         String symbol = "ICE";
 
         try {

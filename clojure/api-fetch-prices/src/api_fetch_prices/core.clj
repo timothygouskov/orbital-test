@@ -1,19 +1,18 @@
-(ns api-fetch-bonds.core
+(ns api-fetch-prices.core
   (:require
     [clj-http.client :as client]
     [clojure.data.json :as json]))
 
 (def API-KEY
-  ("TODO-API-KEY")
+  (System/getenv "AV_API_KEY"))
 
-(def USER-AGENT
-  "TODO - some user agent (generate one)")
+(defn USER-AGENT []
+  (System/getenv "AV_USER_AGENT"))
 
-(defn fetch-stock-price
-  [api-key symbol]
+(defn fetch-prices[api-key symbol]
   (let [url (str "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" symbol "&interval=1min&apikey=" API-KEY)
         headers {"User-Agent" USER-AGENT}]
     (client/get url headers)))
 
-(fetch-stock-price API-KEY "ICE")
+(fetch-prices API-KEY "ICE")
 

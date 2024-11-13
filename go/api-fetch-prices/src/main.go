@@ -5,6 +5,7 @@ import (
         "net/http"
         "encoding/json"
         "io/ioutil"
+        "os"
 )
 
 type TimeSeries struct {
@@ -27,7 +28,7 @@ type AlphaVantageResponse struct {
         TimeSeries map[string]TimeSeries `json:"Time Series (1min)"`
 }
 
-func fetchStockPrice(apiKey, symbol string) (string, error) {
+func fetchPrices(apiKey, symbol string) (string, error) {
         url := fmt.Sprintf("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=%s&interval=1min&apikey=%s", symbol, apiKey)
 
         resp, err := http.Get(url)
@@ -55,14 +56,15 @@ func fetchStockPrice(apiKey, symbol string) (string, error) {
 }
 
 func main() {
-        apiKey := "TODO - API-KEY"
+        os.Setenv("AV_API_KEY", "AV_API_KEY")
+        apiKey := os.Getenv(AV_API_KEY)
         symbol := "ICE"
 
-        price, err := fetchStockPrice(apiKey, symbol)
+        price, err := fetchPrices(apiKey, symbol)
         if err != nil {
                 fmt.Println("Oops! - Error fetching price:", err)
                 return
         }
 
-        fmt.Printf("Here is the current price for %s is: $%s\n", symbol, price)
+        fmt.Printf("Here is the current price for %s : $%s\n", symbol, price)
 }

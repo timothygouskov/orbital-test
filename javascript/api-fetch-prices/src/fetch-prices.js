@@ -1,8 +1,8 @@
-const apiKey = 'TODO-API-KEY';
+const apiKey = process.env.AV_API_KEY;
 const symbol = 'ICE';
 
 // change to a const after testing
-function fetchStockPrice(apiKey, symbol) {
+function fetchPrices(apiKey, symbol) {
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKey}`;
 
   fetch(url)
@@ -24,5 +24,4 @@ function fetchStockPrice(apiKey, symbol) {
     });
 }
 
-
-fetchStockPrice(apiKey, symbol);
+fetchPrices(apiKey, symbol);

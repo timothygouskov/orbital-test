@@ -1,0 +1,27 @@
+(ns api-fetch-stocks.core
+  (:require
+    [clj-http.client :as client]
+    [clojure.data.json :as json]))
+(defn API-KEY []
+  (System/getenv "AV-API-KEY"))
+(def USER-AGENT []
+  (System/getenv "AV-USER-AGENT"))
+(def USER-AGENT [](defn API-KEY []
+  (System/getenv "AV-API-KEY"))
+(defn USER-AGENT []
+  (System/getenv "AV-USER-AGENT"))
+(def API-KEY
+  (System/getenv "AV-API-KEY"))
+API-KEY 
+API-KEY
+  (System/getenv "AV-API-KEY"))
+  (System/getenv "AV-API-KEY")
+(def API-KEY
+  (System/getenv "AV_API_KEY"))
+(defn USER-AGENT []
+  (System/getenv "AV_USER_AGENT"))
+API-KEY 
+(defn fetch-stock-price [api-key symbol]
+  (let [url (str "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" symbol "&interval=1min&apikey=" API-KEY)
+        headers {"User-Agent" USER-AGENT}]
+    (client/get url headers)))

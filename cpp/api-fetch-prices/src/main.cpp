@@ -4,7 +4,7 @@
 
 using namespace std;
 
-string get_stock_price(const string& api_key, const string& symbol) {
+string fetch_prices(const string& api_key, const string& symbol) {
     string url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + symbol + "&interval=1min&apikey=" + api_key;
 
     CURL *curl;
@@ -34,12 +34,19 @@ string get_stock_price(const string& api_key, const string& symbol) {
     return to_string(price);
 }
 
+const char* GetEnv( const char* tag, const char* def=nullptr ) noexcept {
+  const char* ret = std::getenv(tag);
+  return ret ? ret : def;
+}
+
 int main() {
-    string api_key = "TODO-API-KEY";
+    int ret=0;
+    string api_key = GetEnv("AV_API_KEY");
     string symbol = "ICE";
 
-    string price = get_stock_price(api_key, symbol);
+    string price = fetch_prices(api_key, symbol);
     cout << "The current price of " << symbol << " is: $" << price << endl;
 
-    return 0;
+    return (-1==ret?errno:0);
 }
+

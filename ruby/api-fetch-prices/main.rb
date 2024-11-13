@@ -1,10 +1,10 @@
 require 'net/http'
 require 'json'
 
-api_key = 'TODO-API-KEY'
+api_key = ENV['AV_API_KEY']
 symbol = 'ICE'
 
-def fetch_stock_price(api_key, symbol)
+def fetch_prices(api_key, symbol)
   url = URI("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=#{symbol}&interval=1min&apikey=#{api_key}")
   http = Net::HTTP.new(url.host, url.port)
   request = Net::HTTP::Get.new(url)
@@ -17,4 +17,5 @@ def fetch_stock_price(api_key, symbol)
   puts "The current price of #{symbol} is: $#{price}"
 end
 
-fetch_stock_price(api_key, symbol)
+fetch_prices(api_key, symbol)
+
